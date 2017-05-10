@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+ 
+           
+    <context:component-scan base-package="com.hao.onlineExam"/>
+    <mvc:annotation-driven/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/view/"/>
+    <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- 国际化 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		 <property name="basenames" value="i18n.message"></property> 
+		 <property name="defaultEncoding" value="UTF-8"/>  
+	</bean>
+	
+	<!-- 基于Session的国际化配置 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
+	
+	<!-- 动态语言切换 -->
+	 <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="locale"/>
+    </bean>
+
+<!-- 静态资源访问 -->
+    <mvc:resources location="/static/lib/" mapping="/static/lib/**"/>
+    <mvc:resources location="/static/assets/" mapping="/static/assets/**"/>
+    <mvc:resources location="/static/docs/" mapping="/static/docs/**"/>
+    
+      <!-- JSR 303 Validator -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+    <mvc:annotation-driven validator="validator"/>
+    
+    <!-- 数据库配置 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- MySQL数据库配置 -->
+        <property name="url" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+    
+    <!-- 配置jdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" abstract="false"
+          lazy-init="false" autowire="default">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        </bean>
+         <!--配置Hibernate-->
+				<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+			        <property name="dataSource" ref="dataSource"/>
+			        <property name="packagesToScan" value="com.hao.onlineExam.model" ></property>
+			        <property name="hibernateProperties">
+			            <props>
+				            <!-- 方言 -->
+			            	<prop key="dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+					        <!-- 控制台显示SQL -->
+					        <prop key="show_sql">true</prop>
+					        <!-- 自动更新表结构 -->
+					       <!--  <prop key="hbm2ddl.auto">update</prop>  -->
+					       
+			            </props>
+			        </property>
+			    </bean>
+			    <!--配置Hibernate事務-->
+			     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			        <property name="sessionFactory" ref="sessionFactory"/>
+			    </bean>
+			    <tx:annotation-driven transaction-manager="transactionManager"/>
+			    
+			    <!-- //文件上传 -->
+				<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+			
+			<!-- //攔截器 -->
+				<mvc:interceptors>
+				<mvc:interceptor>
+					<mvc:mapping path="/**" />
+					<mvc:mapping path="/logout" />
+					<!-- <mvc:mapping path="/login" /> -->
+					<!-- <mvc:mapping path="/static/**" /> -->
+					<mvc:exclude-mapping path="/login" />
+					<mvc:exclude-mapping path="/teacher/toManageTest" />
+      				<mvc:exclude-mapping path="/static/**" />
+					<bean class="com.hao.onlineExam.interceptor.LoginInterceptor"></bean>
+				</mvc:interceptor>
+			</mvc:interceptors>
+			
+			<!-- AOP配置 -->	
+			<aop:aspectj-autoproxy/>  
+	</beans>
