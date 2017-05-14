@@ -3,8 +3,6 @@ package com.hao.onlineExam.dao.imp;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.type.StringType;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hao.onlineExam.dao.ISubjectDAO;
 import com.hao.onlineExam.model.ExamSubject;
-import com.hao.onlineExam.model.vo.SubjectVO;
 
 @Repository
 @Transactional

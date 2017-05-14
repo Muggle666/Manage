@@ -82,7 +82,7 @@
 						var birthday= $("#addTestForm input[name='birthday']").val();
 						$.ajax({
 							type: 'POST',
-							url: '${contextPath}/Manage/teacher/save',
+							url: '${contextPath}/Manage/teacher/saveUser',
 							data: {
 								userId: userId,
 								userName: userName,
@@ -139,7 +139,7 @@
 						var birthday= $("#updateForm input[name='birthday']").val();
 						$.ajax({
 							type: 'POST',
-							url: '${contextPath}/Manage/teacher/edit',
+							url: '${contextPath}/Manage/teacher/editUser',
 							data: {
 								userId: userId,
 								userName: userName,
@@ -381,7 +381,7 @@
             <a class="btn btn-xs btn-primary ace-icon fa fa-pencil edit-test" data-toggle="modal" data-target="#updateModal">
             </a>
             &nbsp;
-             <a id="delete" class="btn btn-xs btn-primary ace-icon fa fa-trash-o delete-test" href="delete/${user.userId}">
+             <a id="delete" class="btn btn-xs btn-primary ace-icon fa fa-trash-o delete-test" href="deleteUser/${user.userId}">
               </a>
             </td>
         </tr>
@@ -390,121 +390,6 @@
 										</table>
 									</div><!-- /.span -->
 								</div><!-- /.row -->
-
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-			</a>
-		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='${pageContext.request.contextPath}/static/assets/js/jquery.min.js'>"+"<"+"/script>");
-		</script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='${pageContext.request.contextPath}/static/assets/js/jquery1x.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='${pageContext.request.contextPath}/static/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		
-
-		<!-- page specific plugin scripts -->
-		<script src="${pageContext.request.contextPath}/static/assets/js/jquery.dataTables.min.js"></script>
-		<script src="${pageContext.request.contextPath}/static/assets/js/jquery.dataTables.bootstrap.js"></script>
-
-		<!-- ace scripts -->
-		<script src="${pageContext.request.contextPath}/static/assets/js/ace-elements.min.js"></script>
-		<script src="${pageContext.request.contextPath}/static/assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
-			jQuery(function($) {
-				var oTable1 = 
-				$('#sample-table-2')
-				//.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
-				.dataTable( {
-					bAutoWidth: false,
-					"aoColumns": [
-					  { "bSortable": false },
-					  null, null,null, null, null,
-					  { "bSortable": false }
-					],
-					"aaSorting": [],
-			
-					//,
-					//"sScrollY": "200px",
-					//"bPaginate": false,
-			
-					//"sScrollX": "100%",
-					//"sScrollXInner": "120%",
-					//"bScrollCollapse": true,
-					//Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
-					//you may want to wrap the table inside a "div.dataTables_borderWrap" element
-			
-					//"iDisplayLength": 50
-			    } );
-				/**
-				var tableTools = new $.fn.dataTable.TableTools( oTable1, {
-					"sSwfPath": "${pageContext.request.contextPath}/static/${pageContext.request.contextPath}/static/copy_csv_xls_pdf.swf",
-			        "buttons": [
-			            "copy",
-			            "csv",
-			            "xls",
-						"pdf",
-			            "print"
-			        ]
-			    } );
-			    $( tableTools.fnContainer() ).insertBefore('#sample-table-2');
-				*/
-			
-			
-				$(document).on('click', 'th input:checkbox' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-				});
-			
-			
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					//var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-			
-			})
-		</script>
-
-		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/static/assets/css/ace.onpage-help.css" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/static/docs/assets/js/themes/sunburst.css" />
-
-		<script type="text/javascript"> ace.vars['base'] = '..'; </script>
-		<script src="${pageContext.request.contextPath}/static/assets/js/ace/elements.onpage-help.js"></script>
-		<script src="${pageContext.request.contextPath}/static/assets/js/ace/ace.onpage-help.js"></script>
-		<script src="${pageContext.request.contextPath}/static/docs/assets/js/rainbow.js"></script>
-		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/generic.js"></script>
-		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/html.js"></script>
-		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/css.js"></script>
-		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/javascript.js"></script>
-		
 		<!--批量添加 模态框（Modal） -->
 		<div class="modal fade" id="uploadFileModel" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLable" aria-hidden="true">
   			  <div class="modal-dialog">

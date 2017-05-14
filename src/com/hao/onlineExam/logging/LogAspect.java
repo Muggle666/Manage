@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class LogAspect {
-	@Pointcut("execution(public * com.hao.onlineExam.service.imp.UserServiceImp.createUser(..))")
+	@Pointcut("execution(* com.hao.onlineExam.web..*.*(..))")
     public void myMethod(){};
     
     /*@Before("execution(public void com.hao.onlineExam.dao.impl.UserDAOImpl.save(com.hao.onlineExam.model.User))")*/

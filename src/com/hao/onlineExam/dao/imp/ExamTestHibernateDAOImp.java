@@ -6,11 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.hao.onlineExam.dao.IExamTestDAO;
-import com.hao.onlineExam.model.ExamScore;
 import com.hao.onlineExam.model.ExamTest;
 import com.hao.onlineExam.model.PagerModel;
 import com.hao.onlineExam.model.SystemContext;
-import com.hao.onlineExam.model.vo.ExamTestVO;
 
 @Repository
 public class ExamTestHibernateDAOImp extends BaseHibernateDAO<ExamTest> implements IExamTestDAO {

@@ -1,11 +1,9 @@
 package com.hao.onlineExam.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.hao.onlineExam.model.ExamSubject;
-import com.hao.onlineExam.model.vo.SubjectVO;
 
 public interface ISubjectDAO extends IBaseDAO<ExamSubject>{
 	

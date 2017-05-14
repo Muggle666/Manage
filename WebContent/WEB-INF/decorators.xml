@@ -3,7 +3,7 @@
      <excludes>
      <!-- 排除的是相对于url目录层次的，而非文件所在的目录！ -->
 	     <pattern>/login</pattern> 
-	      <pattern>/teacher/toManageTest</pattern> 
+	     
      </excludes>
      
      <decorator name="decorator" page="decorator.jsp">  

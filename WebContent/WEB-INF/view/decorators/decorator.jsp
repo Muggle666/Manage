@@ -439,7 +439,7 @@
 						<b class="arrow"></b>
 					</li>
 					
-<c:if test="${sessionScope.user.examUserRole.roleId == 1 || sessionScope.user.examUserRole.roleId == 2}">
+<c:if test="${sessionScope.user.examUserRole.role.name eq '教师' || sessionScope.user.examUserRole.role.name eq '管理员'}">
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-desktop"></i>
@@ -452,7 +452,7 @@
 						
 						<ul class="submenu">
 							<li class="">
-								<a href="typography.html">
+								<a href="${pageContext.request.contextPath}/teacher/toManageSubject">
 									<i class="menu-icon fa fa-caret-right"></i>
 									管理科目
 								</a>
@@ -461,7 +461,7 @@
 							</li>
 
 							<li class="">
-								<a href="typography.html">
+								<a href="${pageContext.request.contextPath}/teacher/toManageTest">
 									<i class="menu-icon fa fa-caret-right"></i>
 									管理试题
 								</a>
@@ -470,7 +470,7 @@
 							</li>
 
 							<li class="">
-								<a href="elements.html">
+								<a href="${pageContext.request.contextPath}/teacher/toManageScore">
 									<i class="menu-icon fa fa-caret-right"></i>
 									管理学生成绩
 								</a>
@@ -479,62 +479,18 @@
 							</li>
 
 							<li class="">
-								<a href="#" class="dropdown-toggle">
+								<a href="${pageContext.request.contextPath}/teacher/usersList">
 									<i class="menu-icon fa fa-caret-right"></i>
-
-									 管理学生信息
-									<b class="arrow fa fa-angle-down"></b>
+									管理学生信息
 								</a>
 
 								<b class="arrow"></b>
-
-								<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-leaf green"></i>
-											Item #1
-										</a>
-
-										<b class="arrow"></b>
-									</li>
-
-									<li class="">
-										<a href="#" class="dropdown-toggle">
-											<i class="menu-icon fa fa-pencil orange"></i>
-
-											4th level
-											<b class="arrow fa fa-angle-down"></b>
-										</a>
-
-										<b class="arrow"></b>
-
-										<ul class="submenu">
-											<li class="">
-												<a href="#">
-													<i class="menu-icon fa fa-plus purple"></i>
-													Add Product
-												</a>
-
-												<b class="arrow"></b>
-											</li>
-
-											<li class="">
-												<a href="#">
-													<i class="menu-icon fa fa-eye pink"></i>
-													View Products
-												</a>
-
-												<b class="arrow"></b>
-											</li>
-										</ul>
-									</li>
-								</ul>
 							</li>
 						</ul>
 					</li>
 </c:if>
 
-<c:if test="${sessionScope.user.examUserRole.roleId == 1 || sessionScope.user.examUserRole.roleId == 3}">
+<c:if test="${sessionScope.user.examUserRole.role.name eq '学生' || sessionScope.user.examUserRole.role.name eq '管理员'}">
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-desktop"></i>
@@ -547,7 +503,7 @@
 						
 						<ul class="submenu">
 							<li class="">
-								<a href="typography.html">
+								<a href="${pageContext.request.contextPath}/student/examSubjectList">
 									<i class="menu-icon fa fa-caret-right"></i>
 									学生查看科目
 								</a>

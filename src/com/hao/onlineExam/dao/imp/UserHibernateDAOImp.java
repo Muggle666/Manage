@@ -32,7 +32,7 @@ public class UserHibernateDAOImp extends BaseHibernateDAO<User> implements IUser
 	}
 	@Override
 	public void editUser(User user) throws Exception {
-		update(user);
+		this.update(user);
 	}
 	@Override
 	public User getUserById(String userId) throws Exception {

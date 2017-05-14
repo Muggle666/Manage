@@ -8,7 +8,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hao.onlineExam.model.User;
-import com.hao.onlineExam.model.vo.ExamUserVO;
 
 public class LoginInterceptor implements HandlerInterceptor{
 

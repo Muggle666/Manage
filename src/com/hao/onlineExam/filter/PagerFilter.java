@@ -20,6 +20,7 @@ public class PagerFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		request.setCharacterEncoding("UTF-8");
 		int offset = 0 ;
 		try {
 				offset = Integer.parseInt(request.getParameter("pager.offset"));

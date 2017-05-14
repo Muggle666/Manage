@@ -49,6 +49,8 @@
 				$('#addSubjectBtn').click(function(){
 					$('#addSubjectModal').modal('show');
 				});
+
+				
 				$('#addAll').on('click',function(){
 					$.ajaxFileUpload({
 						url:'${contextPath}/Manage/teacher/uploadFile',
@@ -84,7 +86,7 @@
 						var status = $("#addTestForm input[name='status']").val();
 						$.ajax({
 							type: 'POST',
-							url: '${contextPath}/Manage/save',
+							url: '${contextPath}/Manage/teacher/saveSubject',
 							data: {
 								subId: subId,
 								name: name,
@@ -141,7 +143,7 @@
 						var status= $("#updateForm input[name='status']").val();
 						$.ajax({
 							type: 'POST',
-							url: '${contextPath}/Manage/edit',
+							url: '${contextPath}/Manage/teacher/editSubject',
 							data: {
 								subId: subId,
 								name: name,
@@ -173,7 +175,7 @@
 									var subId = $(this).parents("td").siblings("td").eq(1).text();
 									$.ajax({
 												type : 'post',
-												url : '${contextPath}/Manage/getAllStudent',
+												url : '${contextPath}/Manage/teacher/getAllStudent',
 												data : {
 													subId : subId
 												},
@@ -205,6 +207,7 @@
 													.text());
 									$('#subjectStudentModal').modal('show');
 								});
+				
 							function checkSelectedUser(array,str){
 								for(var i = 0 ;i < array.length ; i++){
 									if(array[i] == str){
@@ -219,7 +222,7 @@
 								var subId = $(this).parents("td").siblings("td").eq(1).text();
 								$.ajax({
 									type : 'post', 
-									url : '${contextPath}/Manage/changeStatus',
+									url : '${contextPath}/Manage/teacher/changeStatus',
 									data : {
 										status : status,
 										subId : subId
@@ -243,7 +246,7 @@
 									}
 									$.ajax({
 												type : 'post', 
-												url : '${contextPath}/Manage/saveSubjectStudents',
+												url : '${contextPath}/Manage/teacher/saveSubjectStudents',
 												data : {
 													subjectStudents : subjectStudents,//把所有勾選上的學號以數組的形式闖到後台
 													subId : $('#subId').val()
@@ -252,7 +255,7 @@
 												success : function(data) {
 													if (data.success) {
 														alert('成功');
-														$('#subjectStudentModal').modal('hide');
+														$('#').modal('hide');
 													} else {
 														alert('失敗');
 													}
@@ -299,6 +302,28 @@
 		<script src="${pageContext.request.contextPath}/static/assets/js/html5shiv.min.js"></script>
 		<script src="${pageContext.request.contextPath}/static/assets/js/respond.min.js"></script>
 		<![endif]-->
+		<style>
+		.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+		</style>
 	</head>
 
 	<body class="no-skin">
@@ -432,6 +457,10 @@
 									<i class="ace-icon fa fa-plus align-top bigger-125"></i>
 									批量添加科目信息
 									</button>
+									<button id="queryStudent" class="btn btn-primary">
+									<i class="ace-icon fa fa-plus align-top bigger-125"></i>
+									查询学生考试成绩
+									</button>
 									<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
@@ -490,7 +519,7 @@
             <td>
             <a title="修改科目" class="btn btn-xs btn-primary editSubject" data-toggle="modal" data-target="#updateSubjectModal">
 			<i class="ace-icon fa fa-pencil"></i></a>
-			<a title="删除科目" class="btn btn-xs btn-primary deleteSubject" href="delete/${sub.subId}">
+			<a title="删除科目" class="btn btn-xs btn-primary deleteSubject" href="deleteSubject/${sub.subId}">
 			<i class="ace-icon fa fa-trash-o"></i></a>
 			<a title="管理科目考生" class="btn btn-xs btn-primary manage-subject-student-btn">
 			<i class="glyphicon glyphicon-user"></i></a>
@@ -520,7 +549,7 @@
 							</div><!-- /.col -->
 						</div><!-- /.row -->
 
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+	<%-- 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div><!-- /.main-container -->
@@ -608,7 +637,7 @@
 		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/html.js"></script>
 		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/css.js"></script>
 		<script src="${pageContext.request.contextPath}/static/docs/assets/js/language/javascript.js"></script>
-		
+		 --%>
 		<!--批量添加 模态框（Modal） -->
 		<div class="modal fade" id="uploadFileModel" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLable" aria-hidden="true">
   			  <div class="modal-dialog">
